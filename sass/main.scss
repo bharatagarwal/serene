@@ -119,7 +119,7 @@ a:focus-visible {
 
   p {
     font-size: 1em;
-    font-weight: 500;
+    font-weight: var(--font-weight);
     line-height: inherit;
     word-wrap: break-word;
     margin: var(--baseline) 0;
