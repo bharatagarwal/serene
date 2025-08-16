@@ -16,13 +16,13 @@ function enableThemeToggle() {
   function initGiscusTheme(evt) {
     if (evt.origin !== 'https://giscus.app') return;
     if (!(typeof evt.data === 'object' && evt.data.giscus)) return;
-    toggleGiscusTheme(sessionStorage.getItem("theme") || (preferDark.matches ? "dark" : "light"));
+    toggleGiscusTheme(sessionStorage.getItem("theme") || "light");
     window.removeEventListener('message', initGiscusTheme);
   }
   window.addEventListener('message', initGiscusTheme);
   themeToggle.addEventListener('click', () => toggleTheme(sessionStorage.getItem("theme") == "dark" ? "light" : "dark"));
   preferDark.addEventListener("change", e => toggleTheme(e.matches ? "dark" : "light"));
-  if (!sessionStorage.getItem("theme") && preferDark.matches) toggleTheme("dark");
+  // Light mode is default - only switch to dark if explicitly chosen
   if (sessionStorage.getItem("theme") == "dark") toggleTheme("dark");
 }
 
@@ -183,6 +183,25 @@ function addFootnoteBacklink() {
   });
 }
 
+function convertMarkdownImages() {
+  document.querySelectorAll('.prose img').forEach(img => {
+    if (img.parentElement.tagName === 'FIGURE') return;
+    
+    const alt = img.getAttribute('alt');
+    if (!alt) return;
+    
+    const figure = document.createElement('figure');
+    const newImg = img.cloneNode(true);
+    const figcaption = document.createElement('figcaption');
+    figcaption.textContent = alt;
+    
+    figure.appendChild(newImg);
+    figure.appendChild(figcaption);
+    
+    img.parentElement.replaceChild(figure, img);
+  });
+}
+
 function enableImgLightense() {
   window.addEventListener("load", () => Lightense(".prose img:not(.no-lightense)", { background: 'rgba(43, 43, 43, 0.19)' }));
 }
@@ -252,6 +271,7 @@ if (document.body.classList.contains('post')) {
   enableTocTooltip();
 }
 if (document.querySelector('.prose')) {
+  convertMarkdownImages();
   addCopyBtns();
   addFootnoteBacklink();
   enableImgLightense();
