@@ -58,6 +58,10 @@ a:focus-visible {
   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
 
 .prose {
+  h1, h2, h3, h4, h5, h6 {
+    font-family: var(--heading-font);
+  }
+
   h1 {
     font-size: 2.25rem; /* 36px at 16px base */
     font-weight: bolder;
