@@ -45,7 +45,7 @@
     --heading-font: Merriweather, Georgia, serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
     --code-font: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace;
     --homepage-max-width: 700px;
-    --main-max-width: 650px;
+    --main-max-width: 600px;
     --avatar-size: 60px;
     --font-size: 18px;
     --font-weight: 400;
@@ -68,6 +68,13 @@
       --font-size: 18px;
       --line-height: 1.55;
       --baseline: 21px;
+    }
+  }
+
+  @media screen and (max-width: 767px) {
+    body {
+      --font-size: 16px; /* Smaller mobile size for closer viewing distance */
+      --line-height: 1.5; /* Slightly more spacing for mobile */
     }
   }
 

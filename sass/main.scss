@@ -19,10 +19,10 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   font-kerning: normal;
-  -moz-font-feature-settings: "kern", "liga", "clig", "calt";
-  -ms-font-feature-settings: "kern", "liga", "clig", "calt";
-  -webkit-font-feature-settings: "kern", "liga", "clig", "calt";
-  font-feature-settings: "kern", "liga", "clig", "calt";
+  -moz-font-feature-settings: "kern", "liga", "clig", "calt", "onum";
+  -ms-font-feature-settings: "kern", "liga", "clig", "calt", "onum";
+  -webkit-font-feature-settings: "kern", "liga", "clig", "calt", "onum";
+  font-feature-settings: "kern", "liga", "clig", "calt", "onum";
 }
 
 button:focus-visible,
@@ -72,12 +72,18 @@ a:focus-visible {
     font-weight: bolder;
     line-height: calc(var(--baseline) * 2); /* 2 baseline units */
     margin: calc(var(--baseline) * 2.5) 0 calc(var(--baseline) * 1);
+    
+    /* Tighter letter spacing for large headlines */
+    letter-spacing: -0.01em;
   }
 
   h2 {
     font-size: 1.75rem; /* 28px at 16px base */
     line-height: calc(var(--baseline) * 2);
     margin: calc(var(--baseline) * 2) 0 calc(var(--baseline) * 0.5);
+    
+    /* Slightly tighter spacing for headings */
+    letter-spacing: -0.005em;
   }
 
   h3 {
@@ -132,7 +138,6 @@ a:focus-visible {
     line-height: inherit;
     word-wrap: break-word;
     margin: var(--baseline) 0;
-    max-width: 70ch; /* Optimal reading line length */
   }
 
   a {
@@ -151,12 +156,18 @@ a:focus-visible {
   img {
     max-width: 100%;
     display: block;
-    margin: 0 auto;
+    margin: 2em auto 0;
     border-radius: var(--img-border-radius);
+    
+    @media (min-width: 768px) {
+      width: 141%;
+      max-width: 141%;
+      margin-left: -20.5%;
+    }
   }
 
   figure {
-    margin: 0 auto;
+    margin: 0 auto 2em;
   }
 
   figcaption {
@@ -172,9 +183,14 @@ a:focus-visible {
     padding-left: calc(var(--baseline) * 0.75);
     margin: var(--baseline) 0;
     color: var(--text-pale-color);
+    
+    /* Implement hanging punctuation for quotes */
+    text-indent: -0.4em;
+    padding-left: calc(var(--baseline) * 0.75 + 0.4em);
 
     p {
       margin: calc(var(--baseline) * 0.75) 0;
+      text-indent: 0; /* Reset indent for nested paragraphs */
     }
   }
 
@@ -216,6 +232,16 @@ a:focus-visible {
     text-align: center;
     border: 1px solid var(--primary-color);
     padding: 1px 10px;
+    
+    /* Use tabular figures for numbers in tables */
+    -moz-font-feature-settings: "tnum";
+    -ms-font-feature-settings: "tnum";
+    -webkit-font-feature-settings: "tnum";
+    font-feature-settings: "tnum";
+  }
+  
+  td:has(+ td) {
+    text-align: right; /* Right-align numbers for decimal alignment */
   }
 
   :not(pre) > code {
@@ -226,6 +252,12 @@ a:focus-visible {
     background-color: var(--inline-code-bg-color);
     border-radius: var(--inline-code-border-radius);
     word-wrap: break-word;
+    
+    /* Disable ligatures for code */
+    -moz-font-feature-settings: "liga" 0;
+    -ms-font-feature-settings: "liga" 0;
+    -webkit-font-feature-settings: "liga" 0;
+    font-feature-settings: "liga" 0;
   }
 
   pre {
@@ -240,6 +272,12 @@ a:focus-visible {
 
     code {
       font-family: var(--code-font);
+      
+      /* Disable ligatures for code blocks */
+      -moz-font-feature-settings: "liga" 0;
+      -ms-font-feature-settings: "liga" 0;
+      -webkit-font-feature-settings: "liga" 0;
+      font-feature-settings: "liga" 0;
     }
 
     &[data-linenos] {
@@ -535,7 +573,7 @@ body.prose-page {
   }
 
   article {
-    padding: 0 15px;
+    padding: 0;
   }
 
   .giscus {
@@ -1383,7 +1421,7 @@ body.post {
   }
 
   article {
-    padding: 0 15px 2em;
+    padding: 0 0 2em;
 
     #post-info {
       display: flex;
