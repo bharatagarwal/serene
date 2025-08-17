@@ -206,6 +206,44 @@ function enableImgLightense() {
   window.addEventListener("load", () => Lightense(".prose img:not(.no-lightense)", { background: 'rgba(43, 43, 43, 0.19)' }));
 }
 
+function enableContextAwareBackButton() {
+  const backLink = document.querySelector('#context-back-link');
+  if (!backLink) return;
+  
+  const defaultPath = backLink.dataset.defaultPath;
+  const currentPath = window.location.pathname;
+  
+  // Check if we came from home page or posts page
+  const referrer = document.referrer;
+  const referrerPath = referrer ? new URL(referrer).pathname : '';
+  
+  // If referrer is home page, go back to home
+  if (referrerPath === '/' || referrerPath === '') {
+    backLink.href = '/';
+  }
+  // If referrer is posts page, keep default behavior
+  else if (referrerPath === '/posts/' || referrerPath === '/posts') {
+    backLink.href = defaultPath;
+  }
+  // For direct access or other referrers, use default
+  else {
+    backLink.href = defaultPath;
+  }
+  
+  // Add click handler for proper browser history navigation
+  backLink.addEventListener('click', (e) => {
+    e.preventDefault();
+    
+    // Check if browser has history to go back to
+    if (window.history.length > 1 && referrer && referrer.includes(window.location.origin)) {
+      window.history.back();
+    } else {
+      // Fallback to the determined path
+      window.location.href = backLink.href;
+    }
+  });
+}
+
 function enableReaction() {
   const container = document.querySelector('.reaction');
   if (!container) return;
@@ -265,6 +303,7 @@ function enableReaction() {
 enableThemeToggle();
 enablePrerender();
 enableRssMask();
+enableContextAwareBackButton();
 if (document.body.classList.contains('post')) {
   enableOutdateAlert();
   addBackToTopBtn();
