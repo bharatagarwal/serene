@@ -561,7 +561,18 @@ body.dark .prose {
 /* prose pages
   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
 
+@media (max-width: 767px) {
+  body {
+    padding: 0 1em;
+  }
+  
+  main {
+    padding-top: 0.5em;
+  }
+}
+
 body.prose-page {
+
   main {
     min-height: 100vh;
     min-height: 100dvh;
@@ -574,10 +585,6 @@ body.prose-page {
 
   article {
     padding: 0;
-    
-    @media (max-width: 767px) {
-      padding: 0 15px;
-    }
   }
 
   .giscus {
@@ -1027,7 +1034,7 @@ body.prose-page {
   }
 
   .post-list {
-    padding: 0 15px;
+    padding: 0 0;
 
     &.categorized {
       margin: 1em 0 3em 0;
@@ -1134,7 +1141,7 @@ body.homepage {
   }
 
   #info {
-    padding: 0 15px;
+    padding: 0;
     display: flex;
     align-items: center;
     gap: 1em;
@@ -1168,8 +1175,8 @@ body.homepage {
   }
 
   #links {
-    padding: 0 15px;
-    margin: 2em 0 2.5em;
+    padding: 0;
+    margin: 2em 0 2em;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -1222,7 +1229,7 @@ body.homepage {
   }
 
   #brief {
-    padding: 0 15px;
+    padding: 0 0px;
   }
 }
 
@@ -1231,7 +1238,7 @@ body.homepage {
 
 header {
   font-size: 0.8em;
-  padding: 0 15px;
+  padding: 0 0;
   a {
     -webkit-tap-highlight-color: transparent;
     display: inline-block;
@@ -1428,7 +1435,7 @@ body.post {
     padding: 0 0 2em;
     
     @media (max-width: 767px) {
-      padding: 0 15px 2em;
+      padding: 0 0 2em;
     }
 
     #post-info {

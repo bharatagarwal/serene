@@ -21,7 +21,6 @@ function enableThemeToggle() {
   }
   window.addEventListener('message', initGiscusTheme);
   themeToggle.addEventListener('click', () => toggleTheme(sessionStorage.getItem("theme") == "dark" ? "light" : "dark"));
-  preferDark.addEventListener("change", e => toggleTheme(e.matches ? "dark" : "light"));
   // Light mode is default - only switch to dark if explicitly chosen
   if (sessionStorage.getItem("theme") == "dark") toggleTheme("dark");
 }
