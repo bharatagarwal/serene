@@ -574,6 +574,10 @@ body.prose-page {
 
   article {
     padding: 0;
+    
+    @media (max-width: 767px) {
+      padding: 0 15px;
+    }
   }
 
   .giscus {
@@ -1422,6 +1426,10 @@ body.post {
 
   article {
     padding: 0 0 2em;
+    
+    @media (max-width: 767px) {
+      padding: 0 15px 2em;
+    }
 
     #post-info {
       display: flex;
